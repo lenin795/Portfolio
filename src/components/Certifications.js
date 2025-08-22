@@ -33,7 +33,7 @@ function Certifications() {
       // Mouse wheel handler
       const handleWheel = (e) => {
         e.preventDefault();
-        const delta = e.deltaY > 0 ? 10 : -10; // Adjust sensitivity
+        const delta = e.deltaY > 0 ? 0.5 : -0.5; // Adjust sensitivity
         rotateCarousel(delta);
       };
 
@@ -42,11 +42,11 @@ function Certifications() {
         switch(e.key) {
           case 'ArrowLeft':
             e.preventDefault();
-            rotateCarousel(-15);
+            rotateCarousel(-10);
             break;
           case 'ArrowRight':
             e.preventDefault();
-            rotateCarousel(15);
+            rotateCarousel(10);
             break;
         }
       };
@@ -212,7 +212,7 @@ function Certifications() {
     position: 'absolute',
     width: 'auto',
     height: 'auto',
-    left: '70%',
+    left: '50%',
     top: '60%',
     marginLeft: '-190px',
     marginTop: '-250px',
