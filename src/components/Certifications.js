@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from "react";
 function Certifications() {
   const stageRef = useRef(null);
   const uniqueId = useRef(`cert-carousel-${Date.now()}`);
+  const autoRotationRef = useRef(null);
+  const isAutoRotatingRef = useRef(true);
 
   useEffect(() => {
     const loadLibraries = async () => {
@@ -16,11 +18,12 @@ function Certifications() {
       let currentRotation = 0;
       let isDragging = false;
       let startX = 0;
-      let startY = 0;
+      let targetRotation = 0;
+      let isAnimating = false;
 
       // Set initial positions with better spacing
       imgElements.forEach((img, i) => {
-        const angle = i * -(360 / certifications.length); // Dynamic angle based on number of certificates
+        const angle = i * -(360 / certifications.length);
         img.style.transform = `rotateY(${angle}deg) translateZ(600px)`;
       });
 
@@ -30,40 +33,105 @@ function Certifications() {
         ringElement.style.transform = `rotateY(${currentRotation}deg)`;
       };
 
-      // Mouse wheel handler
-      const handleWheel = (e) => {
-        e.preventDefault();
-        const delta = e.deltaY > 0 ? 0.5 : -0.5; // Adjust sensitivity
-        rotateCarousel(delta);
+      // Animate to target rotation
+      const animateToRotation = (target) => {
+        if (isAnimating) return;
+        isAnimating = true;
+        targetRotation = target;
+        
+        const animate = () => {
+          const diff = targetRotation - currentRotation;
+          const step = diff * 0.1;
+          
+          if (Math.abs(diff) > 0.5) {
+            currentRotation += step;
+            ringElement.style.transform = `rotateY(${currentRotation}deg)`;
+            requestAnimationFrame(animate);
+          } else {
+            currentRotation = targetRotation;
+            ringElement.style.transform = `rotateY(${currentRotation}deg)`;
+            isAnimating = false;
+          }
+        };
+        animate();
       };
 
-      // Keyboard handler
-      const handleKeyDown = (e) => {
-        switch(e.key) {
-          case 'ArrowLeft':
-            e.preventDefault();
-            rotateCarousel(-10);
-            break;
-          case 'ArrowRight':
-            e.preventDefault();
-            rotateCarousel(10);
-            break;
+      // Auto rotation function
+      const startAutoRotation = () => {
+        if (autoRotationRef.current) {
+          clearInterval(autoRotationRef.current);
+        }
+        
+        if (isAutoRotatingRef.current) {
+          autoRotationRef.current = setInterval(() => {
+            if (isAutoRotatingRef.current && !isDragging && !isAnimating) {
+              startAutoRotation();
+              rotateCarousel(-0.3);
+              isAutoRotatingRef.current = true; 
+            }
+          }, 50);
         }
       };
 
-      // Enhanced Mouse/Touch handlers
+      // Stop auto rotation
+      const stopAutoRotation = () => {
+        if (autoRotationRef.current) {
+          clearInterval(autoRotationRef.current);
+          autoRotationRef.current = null;
+        }
+      };
+
+      // Start auto rotation initially
+      startAutoRotation();
+
+      // Certificate click handler - center the clicked certificate
+      const handleCertificateClick = (e, index) => {
+        e.stopPropagation();
+        stopAutoRotation();
+        
+        // Calculate rotation needed to center this certificate
+        const anglePerCert = 360 / certifications.length;
+        const targetAngle = index * anglePerCert;
+        
+        // Find the shortest path to the target
+        let rotationNeeded = targetAngle - (currentRotation % 360);
+        if (rotationNeeded > 180) rotationNeeded -= 360;
+        if (rotationNeeded < -180) rotationNeeded += 360;
+        
+        // Animate to center position
+        animateToRotation(currentRotation + rotationNeeded);
+        
+        // Add visual feedback
+        const clickedCert = e.currentTarget;
+        clickedCert.style.boxShadow = '0 12px 40px rgba(59, 130, 246, 0.5)';
+        clickedCert.style.border = '4px solid #3b82f6';
+        
+        // Reset visual feedback and restart rotation after delay
+        setTimeout(() => {
+          clickedCert.style.boxShadow = '0 12px 40px rgba(0,0,0,0.4)';
+          clickedCert.style.border = '4px solid #e5e7eb';
+          isAutoRotatingRef.current = true;
+          startAutoRotation();
+        }, 3000);
+      };
+
+      // Touch/Mouse handlers for manual rotation
       const handleStart = (e) => {
         isDragging = true;
+        stopAutoRotation();
         startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-        startY = e.type === 'touchstart' ? e.touches.clientY : e.clientY;
         ringElement.style.cursor = 'grabbing';
         carouselContainer.style.cursor = 'grabbing';
         
-        // Prevent text selection
         document.body.style.userSelect = 'none';
         
-        document.addEventListener('mousemove', handleMove, { passive: false });
-        document.addEventListener('touchmove', handleMove, { passive: false });
+        const moveHandler = (e) => handleMove(e);
+        const endHandler = () => handleEnd(moveHandler, endHandler);
+        
+        document.addEventListener('mousemove', moveHandler, { passive: false });
+        document.addEventListener('touchmove', moveHandler, { passive: false });
+        document.addEventListener('mouseup', endHandler);
+        document.addEventListener('touchend', endHandler);
       };
 
       const handleMove = (e) => {
@@ -73,69 +141,64 @@ function Certifications() {
         const currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
         const deltaX = currentX - startX;
         
-        // Increase sensitivity for better responsiveness
-        rotateCarousel(deltaX * 0.5);
+        rotateCarousel(deltaX * 0.3);
         startX = currentX;
       };
 
-      const handleEnd = () => {
+      const handleEnd = (moveHandler, endHandler) => {
         isDragging = false;
         ringElement.style.cursor = 'grab';
         carouselContainer.style.cursor = 'grab';
         document.body.style.userSelect = '';
         
-        document.removeEventListener('mousemove', handleMove);
-        document.removeEventListener('touchmove', handleMove);
+        document.removeEventListener('mousemove', moveHandler);
+        document.removeEventListener('touchmove', moveHandler);
+        document.removeEventListener('mouseup', endHandler);
+        document.removeEventListener('touchend', endHandler);
+        
+        // Resume auto rotation after interaction
+        setTimeout(() => {
+          isAutoRotatingRef.current = true;
+          startAutoRotation();
+        }, 20000);
       };
 
-      // Hover effects with improved scaling
-      imgElements.forEach(img => {
+      // Add event listeners
+      imgElements.forEach((img, index) => {
+        const clickHandler = (e) => handleCertificateClick(e, index);
+        img.addEventListener('click', clickHandler);
+        img.addEventListener('touchend', clickHandler);
+        
+        // Simple hover effects without stopping rotation
         img.addEventListener('mouseenter', () => {
-          imgElements.forEach(otherImg => {
-            if (otherImg === img) {
-              otherImg.style.opacity = '1';
-              otherImg.style.transform = otherImg.style.transform + ' scale(1.1)';
-              otherImg.style.zIndex = '10';
-            } else {
-              otherImg.style.opacity = '0.7';
-              otherImg.style.zIndex = '1';
-            }
-          });
+          img.style.transform = img.style.transform + ' scale(1.05)';
+          img.style.zIndex = '10';
         });
 
         img.addEventListener('mouseleave', () => {
-          imgElements.forEach(otherImg => {
-            otherImg.style.opacity = '1';
-            otherImg.style.transform = otherImg.style.transform.replace(' scale(1.1)', '');
-            otherImg.style.zIndex = '5';
-          });
+          img.style.transform = img.style.transform.replace(' scale(1.05)', '');
+          img.style.zIndex = '5';
         });
       });
 
-      // Add event listeners to the entire carousel container for better accessibility
       carouselContainer.addEventListener('mousedown', handleStart);
       carouselContainer.addEventListener('touchstart', handleStart, { passive: false });
-      document.addEventListener('mouseup', handleEnd);
-      document.addEventListener('touchend', handleEnd);
       
-      // Add wheel and keyboard support
-      carouselContainer.addEventListener('wheel', handleWheel, { passive: false });
-      document.addEventListener('keydown', handleKeyDown);
-      
-      // Make container focusable for keyboard events
+      // Make container focusable
       carouselContainer.setAttribute('tabindex', '0');
       carouselContainer.style.outline = 'none';
 
       // Cleanup function
       return () => {
+        stopAutoRotation();
         carouselContainer.removeEventListener('mousedown', handleStart);
         carouselContainer.removeEventListener('touchstart', handleStart);
-        document.removeEventListener('mouseup', handleEnd);
-        document.removeEventListener('touchend', handleEnd);
-        document.removeEventListener('mousemove', handleMove);
-        document.removeEventListener('touchmove', handleMove);
-        carouselContainer.removeEventListener('wheel', handleWheel);
-        document.removeEventListener('keydown', handleKeyDown);
+        
+        imgElements.forEach((img, index) => {
+          const clickHandler = (e) => handleCertificateClick(e, index);
+          img.removeEventListener('click', clickHandler);
+          img.removeEventListener('touchend', clickHandler);
+        });
       };
     };
 
@@ -171,30 +234,31 @@ function Certifications() {
     textAlign: 'center',
     marginBottom: '30px',
     color: 'white',
-    fontSize: '2.5rem',
+    fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
     fontWeight: 'bold'
   };
 
   const carouselContainerStyle = {
-    minHeight: '700px',
+    minHeight: 'clamp(400px, 80vh, 700px)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
     overflow: 'visible',
-    cursor: 'grab', // Add grab cursor to entire container
-    borderRadius: '20px', // Visual feedback for interactive area
-    padding: '20px' // Add padding for larger interactive area
+    cursor: 'grab',
+    borderRadius: '20px',
+    padding: '20px',
+    touchAction: 'none'
   };
 
   const stageStyle = {
     position: 'relative',
-    width: '500px',
-    height: '600px',
+    width: 'clamp(300px, 80vw, 500px)',
+    height: 'clamp(400px, 70vh, 600px)',
     margin: '0 auto',
     transformStyle: 'preserve-3d',
     userSelect: 'none',
-    perspective: '1500px'
+    perspective: 'clamp(800px, 150vw, 1500px)'
   };
 
   const ringStyle = {
@@ -214,23 +278,27 @@ function Certifications() {
     height: 'auto',
     left: '50%',
     top: '60%',
-    marginLeft: '-190px',
-    marginTop: '-250px',
+    marginLeft: 'clamp(-120px, -15vw, -190px)',
+    marginTop: 'clamp(-150px, -20vh, -250px)',
     backfaceVisibility: 'hidden',
     borderRadius: '15px',
     boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
     backgroundColor: '#ffffff',
     border: '4px solid #e5e7eb',
     overflow: 'hidden',
-    transition: 'opacity 0.3s ease, transform 0.3s ease, z-index 0.3s ease',
-    zIndex: '5'
+    transition: 'transform 0.3s ease, z-index 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
+    zIndex: '5',
+    cursor: 'pointer',
+    maxWidth: 'clamp(200px, 40vw, 380px)',
+    maxHeight: 'clamp(250px, 50vh, 500px)'
   };
 
   const instructionsStyle = {
     textAlign: 'center',
     marginTop: '30px',
     color: 'rgba(255, 255, 255, 0.8)',
-    fontSize: '1.1rem'
+    fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
+    padding: '0 20px'
   };
 
   return (
@@ -255,7 +323,7 @@ function Certifications() {
                         objectFit: 'cover',
                         borderRadius: '11px',
                         display: 'block',
-                        pointerEvents: 'none' // Prevent image drag interference
+                        pointerEvents: 'none'
                       }}
                       onError={(e) => {
                         e.target.style.display = 'none';
@@ -274,8 +342,8 @@ function Certifications() {
                             padding: 20px;
                             box-sizing: border-box;
                           ">
-                            <div style="font-size: 48px; margin-bottom: 20px;">📜</div>
-                            <h4 style="font-size: 18px; font-weight: 600; margin: 0; line-height: 1.4;">
+                            <div style="font-size: clamp(24px, 6vw, 48px); margin-bottom: 10px;">📜</div>
+                            <h4 style="font-size: clamp(12px, 3vw, 18px); font-weight: 600; margin: 0; line-height: 1.4;">
                               ${cert.title}
                             </h4>
                           </div>
@@ -289,10 +357,7 @@ function Certifications() {
           </div>
         </div>
 
-        {/* Enhanced Instructions */}
-        <div style={instructionsStyle}>
-          <p>🖱️ Drag • 🖲️ Mouse wheel • ⌨️ Arrow keys to rotate certificates</p>
-        </div>
+        
       </div>
     </div>
   );

@@ -5,10 +5,14 @@ function Skills() {
   const skills = [
     "React",
     "Python",
+    "Java",
     "JavaScript",
     "MongoDB",
-    "Data Science",
-    "Machine Learning",
+    "SQL",
+    "HTML",
+    "CSS",
+    "Git",
+    
   ];
 
   return (
