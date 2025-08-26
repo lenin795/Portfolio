@@ -4,7 +4,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AppNavbar() {
   return (
-    <Navbar bg="transparent" variant="dark" expand="lg" sticky="top">
+    <Navbar 
+      expand="lg" 
+      sticky="top"
+      style={{
+        background: 'rgba(0, 0, 0, 0.3)', // Semi-transparent over galaxy
+        backdropFilter: 'blur(15px)',
+        border: '1px solid rgba(255, 255, 255, 0)',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+        zIndex: 1000 // Ensure it stays above background
+      }}
+      variant="dark"
+    >
       <Container>
         <Navbar.Brand href="#home" className="text-white">Lenin's Portfolio</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
