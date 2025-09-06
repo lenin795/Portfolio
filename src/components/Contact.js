@@ -59,17 +59,7 @@ function Contact() {
         }}>
           Get In Touch
         </h2>
-        
-        {/* <p className="text-center text-white mb-5" style={{
-          opacity: 0.8,
-          fontSize: 'clamp(1rem, 2.5vw, 1.2rem)'
-          lineHeight: '1.6',
-          maxWidth: '600px',
-          margin: '0 auto 60px auto'
-        }}>
-          Have a project in mind or just want to chat? I'd love to hear from you. Let's create something amazing together!
-        </p> */}
-        
+
         <Row style={{ minHeight: '70vh' }}>
           {/* Contact Form Section - LEFT SIDE */}
           <Col lg={7} md={12} className="mb-4 mb-lg-0" style={{
@@ -360,25 +350,6 @@ function Contact() {
                 ))}
               </div>
 
-              {/* Additional Info */}
-              {/* <div style={{
-                marginTop: '30px',
-                padding: '15px',
-                background: 'transparent',
-                borderRadius: '12px',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                textAlign: 'center'
-              }}>
-                <p style={{
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  fontSize: '13px',
-                  margin: 0,
-                  lineHeight: '1.4'
-                }}>
-                  <strong>Response time:</strong> Usually within 24 hours<br/>
-                  <strong>Available for:</strong> Freelance projects, collaborations, and opportunities
-                </p>
-              </div> */}
             </div>
           </Col>
         </Row>
