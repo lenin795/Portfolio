@@ -62,7 +62,7 @@ function Contact() {
         
         {/* <p className="text-center text-white mb-5" style={{
           opacity: 0.8,
-          fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+          fontSize: 'clamp(1rem, 2.5vw, 1.2rem)'
           lineHeight: '1.6',
           maxWidth: '600px',
           margin: '0 auto 60px auto'
