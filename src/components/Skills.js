@@ -4,10 +4,10 @@ function Skills() {
   const skills = [
     { name: "HTML", color: "#E34F26", image: "/images/html-icon.png" },
     { name: "CSS", color: "#1572B6", image: "/images/css.png" },
+    { name: "JavaScript", color: "#F7DF1E", image: "/images/javascript.png" },
     { name: "React", color: "#61DAFB", image: "/images/react.png" },
     { name: "Python", color: "#3776AB", image: "/images/python.png" },
     { name: "Java", color: "#ED8B00", image: "/images/java.png" },
-    { name: "JavaScript", color: "#F7DF1E", image: "/images/javascript.png" },
     { name: "MongoDB", color: "#47A248", image: "/images/mongodb.png" },
     { name: "SQL", color: "#336791", image: "/images/sql.png" },
     { name: "Git", color: "#F05032", image: "/images/git.png" },
@@ -31,7 +31,7 @@ function Skills() {
       background: 'transparent',
       height:'400px',
       
-    }}>
+    }}id="skills">
       <div style={{ 
         top:'200px',
         maxWidth: '1400px', 

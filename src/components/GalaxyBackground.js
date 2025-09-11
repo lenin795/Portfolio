@@ -138,7 +138,8 @@ function GalaxyCloudFastBackground() {
         width: "100vw",
         height: "100vh",
         zIndex: -1,
-        display: "block"
+        display: "block",
+        overflow: "hidden"
       }}
     />
   );
