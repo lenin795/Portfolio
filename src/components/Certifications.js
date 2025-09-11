@@ -258,7 +258,8 @@ function Certifications() {
           marginBottom: '50px',
           color: 'white',
           fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          marginTop:'50px'
         }}>
           Certifications
         </h2>
@@ -438,7 +439,7 @@ function Certifications() {
           </div>
         </div>
         
-        <div style={{
+        {/* <div style={{
           textAlign: 'center',
           marginTop: '40px',
           color: 'rgba(255, 255, 255, 0.7)',
@@ -446,7 +447,7 @@ function Certifications() {
           padding: '0 20px'
         }}>
           <p>Click on any certificate to view full image, or drag to scroll manually</p>
-        </div>
+        </div> */}
       </div>
 
       {/* Full Certificate Image Viewer */}

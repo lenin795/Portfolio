@@ -118,16 +118,7 @@ function Projects() {
       features: ["CRUD Operations", "Real-time Sync", "Responsive UI"],
       bgColor: "#10b981, #06b6d4"
     },
-    {
-      id: 3,
-      title: "Portfolio Website",
-      icon: "🌐",
-      description: "Modern portfolio with animations and responsive design",
-      tech: ["React", "GSAP", "Bootstrap"],
-      color: "from-pink-500 to-rose-600",
-      features: ["Responsive Design", "GSAP Animations", "Modern UI"],
-      bgColor: "#ec4899, #f43f5e"
-    },
+    
     {
       id: 4,
       title: "Weather Dashboard",

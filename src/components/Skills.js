@@ -7,7 +7,7 @@ function Skills() {
     { name: "React", color: "#61DAFB", image: "/images/react.png" },
     { name: "Python", color: "#3776AB", image: "/images/python.png" },
     { name: "Java", color: "#ED8B00", image: "/images/java.png" },
-    { name: "JavaScript", color: "#F7DF1E", image: "images/javascript.png" },
+    { name: "JavaScript", color: "#F7DF1E", image: "/images/javascript.png" },
     { name: "MongoDB", color: "#47A248", image: "/images/mongodb.png" },
     { name: "SQL", color: "#336791", image: "/images/sql.png" },
     { name: "Git", color: "#F05032", image: "/images/git.png" },

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import emailjs from "emailjs-com";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -17,9 +18,31 @@ function Contact() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
+  e.preventDefault();
+
+  const serviceID = "service_9v1cltq";   // from EmailJS dashboard
+  const templateID = "template_9umdi2b"; // from EmailJS dashboard
+  const userID = "oKt7MSFDbmsc9S4G7";      // from EmailJS account (public key)
+
+  const templateParams = {
+    from_name: formData.name,
+    from_email: formData.email,
+    message: formData.message,
+    to_email: "lenin7955@gmail.com", // your email
   };
+
+  emailjs.send(serviceID, templateID, templateParams, userID)
+    .then((res) => {
+      console.log("✅ Message sent!", res.status, res.text);
+      alert("Message sent successfully 🚀");
+      setFormData({ name: "", email: "", message: "" }); // reset form
+    })
+    .catch((err) => {
+      console.error("❌ Failed:", err);
+      alert("Message failed. Please try again!");
+    });
+};
+
 
   const socialLinks = [
     
@@ -55,7 +78,8 @@ function Contact() {
         <h2 className="text-center mb-5 text-white" style={{
           fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
           fontWeight: 'bold',
-          marginBottom: '60px'
+          marginBottom: '60px',
+          marginTop:'-10px'
         }}>
           Get In Touch
         </h2>
@@ -75,7 +99,7 @@ function Contact() {
               maxWidth: '500px'
             }}>
               <h3 className="text-white mb-4" style={{ fontSize: '1.5rem', fontWeight: '600' }}>
-                Send me a message
+                Send Me a Message
               </h3>
               
               <Form onSubmit={handleSubmit}>
@@ -155,7 +179,7 @@ function Contact() {
                       fontSize: '16px',
                       color: 'white',
                       resize: 'vertical',
-                      minHeight: '120px',
+                      minHeight: '20px',
                       transition: 'all 0.3s ease'
                     }}
                     onFocus={(e) => {
@@ -217,7 +241,7 @@ function Contact() {
                 fontWeight: '600',
                 textAlign: 'center'
               }}>
-                Connect with me
+                Connect with Me
               </h3>
               
               <div style={{
