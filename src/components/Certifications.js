@@ -480,7 +480,7 @@ function Certifications() {
               justifyContent: 'center',
               transition: 'all 0.3s ease',
               backdropFilter: 'blur(10px)',
-              zIndex: 2001
+              zIndex: 1001
             }}
             onClick={closeCertView}
             onMouseEnter={(e) => {
