@@ -11,10 +11,11 @@ function Skills() {
     { name: "MongoDB", color: "#47A248", image: "/images/mongodb.png" },
     { name: "SQL", color: "#336791", image: "/images/sql.png" },
     { name: "Git", color: "#F05032", image: "/images/git.png" },
+    { name: "Firebase", color: "#ED8B00", image: "/images/firebase.png" },
   ];
 
   // Duplicate skills for seamless loop
-  const duplicatedSkills = [...skills, ...skills, ...skills];
+  const duplicatedSkills = [...skills, ...skills, ...skills, ...skills, ...skills];
 
   // Helper function to convert hex to rgba
   const hexToRgba = (hex, alpha) => {
@@ -83,7 +84,7 @@ function Skills() {
                 alignItems: 'center',
                 height: '100%',
                 willChange: 'transform',
-                animation: 'moveRightToLeft 50s linear infinite'
+                animation: 'moveRightToLeft 100s linear infinite'
               }}
             >
               {duplicatedSkills.map((skill, index) => (

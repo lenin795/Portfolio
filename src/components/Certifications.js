@@ -389,7 +389,7 @@ function Certifications() {
                       e.target.style.display = 'none';
                       const parent = e.target.parentElement;
                       const fallback = document.createElement('div');
-                      fallback.innerHTML = '🏆';
+                      fallback.innerHTML = '';
                       fallback.style.cssText = `
                         font-size: 48px;
                         position: relative;
@@ -438,16 +438,7 @@ function Certifications() {
             ))}
           </div>
         </div>
-        
-        {/* <div style={{
-          textAlign: 'center',
-          marginTop: '40px',
-          color: 'rgba(255, 255, 255, 0.7)',
-          fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
-          padding: '0 20px'
-        }}>
-          <p>Click on any certificate to view full image, or drag to scroll manually</p>
-        </div> */}
+      
       </div>
 
       {/* Full Certificate Image Viewer */}
@@ -489,7 +480,7 @@ function Certifications() {
               justifyContent: 'center',
               transition: 'all 0.3s ease',
               backdropFilter: 'blur(10px)',
-              zIndex: 1001
+              zIndex: 2001
             }}
             onClick={closeCertView}
             onMouseEnter={(e) => {
