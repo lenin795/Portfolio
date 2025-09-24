@@ -15,7 +15,7 @@ function Certifications() {
 
       let isManuallyScrolling = false;
       let scrollPosition = 0;
-      const scrollSpeed = 1.2;
+      const scrollSpeed = 3.5;
 
       // Calculate total width needed for seamless scrolling
       const certItems = scrollingTrack.querySelectorAll('.cert-item');
@@ -200,6 +200,12 @@ function Certifications() {
       fullImage: "/certificates/javascript-full.png"
     },
     { 
+      name: "React", 
+      color: "#61DAFB", 
+      image: "/certificates/react.png",
+      fullImage: "/certificates/react-full.png"
+    },
+    { 
       name: "Python", 
       color: "#3776AB", 
       image: "/certificates/python.png",
@@ -211,6 +217,19 @@ function Certifications() {
       image: "/certificates/MongoDB.png",
       fullImage: "/certificates/MongoDB-full.png"
     },
+    { 
+      name: " IDE Bootcamp (2025)", 
+      color: "#4B0082", 
+      image: "/certificates/Bootcamp.png",
+      fullImage: "/certificates/bootcamp-full.png"
+    },
+    { 
+      name: "TechSaksham: Foundation Course on IR4.0 Technologies (2025)", 
+      color: "#0078D4", 
+      image: "/certificates/techsaksham.png",
+      fullImage: "/certificates/techsaksham-full.png"
+    },
+
     { 
       name: "System Design", 
       color: "#F7DF1E", 
@@ -251,7 +270,9 @@ function Certifications() {
       <div style={{ 
         maxWidth: '1400px', 
         margin: '0 auto', 
-        padding: '0 20px' 
+        padding: '0 20px' ,
+        marginTop:'150px',
+        marginBottom:'100px'
       }}>
         <h2 style={{
           textAlign: 'center',
@@ -457,7 +478,8 @@ function Certifications() {
             alignItems: 'center',
             justifyContent: 'center',
             padding: '20px',
-            animation: 'fadeIn 0.3s ease-out'
+            animation: 'fadeIn 0.3s ease-out',
+            
           }}
           onClick={closeCertView}
         >

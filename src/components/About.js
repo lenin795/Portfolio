@@ -168,7 +168,7 @@ function About() {
           <div style={imageColStyle}>
             <img
               ref={profileImageRef}
-              src="/portfolio.jpg"
+              src="/lenin.png"
               alt="Lenin"
               style={profileImageStyle}
               onMouseEnter={(e) => {

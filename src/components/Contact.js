@@ -297,7 +297,7 @@ function Contact() {
                           width: '32px',
                           height: '32px',
                           objectFit: 'contain',
-                          filter: social.name === 'GitHub' ? 'brightness(0) invert(1)' : 'none'
+                          //filter: social.name === 'GitHub' ? 'brightness(0) invert(1)' : 'none'
                         }}
                         onError={(e) => {
                           e.target.style.display = 'none';
