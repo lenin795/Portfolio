@@ -223,19 +223,19 @@ function Certifications() {
       image: "/certificates/Bootcamp.png",
       fullImage: "/certificates/bootcamp-full.png"
     },
-    { 
-      name: "TechSaksham: Foundation Course on IR4.0 Technologies (2025)", 
-      color: "#0078D4", 
-      image: "/certificates/techsaksham.png",
-      fullImage: "/certificates/techsaksham-full.png"
-    },
+    // { 
+    //   name: "TechSaksham: Foundation Course on IR4.0 Technologies (2025)", 
+    //   color: "#0078D4", 
+    //   image: "/certificates/techsaksham.png",
+    //   fullImage: "/certificates/techsaksham-full.png"
+    // },
 
-    { 
-      name: "System Design", 
-      color: "#F7DF1E", 
-      image: "/certificates/SystemDesign.jpg",
-      fullImage: "/certificates/SystemDesign-full.jpg"
-    }
+    // { 
+    //   name: "System Design", 
+    //   color: "#F7DF1E", 
+    //   image: "/certificates/SystemDesign.jpg",
+    //   fullImage: "/certificates/SystemDesign-full.jpg"
+    // }
   ];
 
   // Close certificate view

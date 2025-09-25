@@ -15,7 +15,7 @@ function Skills() {
   ];
 
   // Duplicate skills for seamless loop
-  const duplicatedSkills = [...skills, ...skills, ...skills, ...skills, ...skills];
+  const duplicatedSkills = [...skills, ...skills, ...skills];
 
   // Helper function to convert hex to rgba
   const hexToRgba = (hex, alpha) => {
