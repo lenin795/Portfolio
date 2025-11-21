@@ -362,7 +362,7 @@ function Hero() {
             lineHeight: '1.6',
             textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)'
           }}>
-            Skilled in React, Python, and Data Science. I enjoy solving
+            Skilled in Java, and MERN Stack. I enjoy solving
             real-world problems with code 🚀
           </p>
 
