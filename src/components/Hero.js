@@ -16,8 +16,9 @@ function Hero() {
   const [isMobile, setIsMobile] = useState(false);
 
   const roles = [
-    "AI & Data Science Student",
-    "Full Stack Developer", 
+    
+    "Full Stack Developer",
+    "MERN Stack Developer", 
     "Problem Solver",
     "Tech Enthusiast"
   ];

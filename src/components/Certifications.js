@@ -218,10 +218,22 @@ function Certifications() {
       fullImage: "/certificates/MongoDB-full.png"
     },
     { 
-      name: " IDE Bootcamp (2025)", 
+      name: " PowerBI", 
       color: "#4B0082", 
-      image: "/certificates/Bootcamp.png",
-      fullImage: "/certificates/bootcamp-full.png"
+      image: "/certificates/powerbi.png",
+      fullImage: "/certificates/powerbi-full.png"
+    },
+    { 
+      name: " JAVA ", 
+      color: "#4B0082", 
+      image: "/certificates/java.png",
+      fullImage: "/certificates/java-full.png"
+    },
+    { 
+      name: " Hackthon", 
+      color: "#4B0082", 
+      image: "/certificates/hackthon.png",
+      fullImage: "/certificates/hackthon-full.png"
     },
     // { 
     //   name: "TechSaksham: Foundation Course on IR4.0 Technologies (2025)", 
